@@ -150,6 +150,11 @@ input:checked + .slider:before {
             let pathAtual = json;
             let pathTitulo = "Categorias";
 
+            function mudarBg(){
+                let cores = ["warning", "danger", "success", "primary", "info", "light"];
+                document.getElementById("menu").className = "hero is-"+cores.randomElement()+" is-fullheight";
+            }
+
             function mudarPath(path, res){
                 if(path) pathAtual = pathAtual[path]
                 pathTitulo = path;
@@ -159,6 +164,7 @@ input:checked + .slider:before {
                     document.getElementById("pergunta-respostas").innerHTML = pathAtual.randomElement();
                     document.getElementById("menu").className = "hero is-warning is-fullheight";
                     document.getElementById("pergunta-respostas").className = "content has-text-centered";
+                    setInterval(()=>{mudarBg()}, 500);
                 } else {
                     document.getElementById("pergunta").innerHTML = pathAtual["title"];
                     document.getElementById("pergunta-imagem").innerHTML = pathAtual["img"];
@@ -189,7 +195,7 @@ input:checked + .slider:before {
         </script>
     </head>
     <body>
-    <section class="hero is-success is-fullheight" style="display: none;" id="menu">
+    <section class="hero is-success is-fullheight" style="display: none;transition-duration: 1s;" id="menu">
             <div class="hero-body">
                 <div class="container">
                     <h1 class="title" id="pergunta">
