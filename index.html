@@ -93,7 +93,24 @@ input:checked + .slider:before {
             };*/
             let json = {
                 "title": "Categorias (Escolha uma)",
-                "img": ""
+                "img": "<img src='https://media.giphy.com/media/dzaUX7CAG0Ihi/giphy.gif' />",
+                "Comida": {
+                    "title": "Categoria: Comida",
+                    "img": "<img src='https://media.giphy.com/media/daLw3QnTCkDjG/giphy.gif' />",
+                    "Você é universitário?": {
+                        "title": "Bixo? Hmm",
+                        "img": "<img src='https://media.giphy.com/media/xiEbepTCEMSBnyCZ69/giphy.gif' />",
+                        "Tem prova amanhã?": ["Miojo é uma ótima pedida, mas como rápido!!<br><img src='https://media.giphy.com/media/Vua0iw25kL8SA/giphy.gif' />"],
+                        "Hoje é fim de semana?": ["Um miojo com molho de tomate cairia bem ;)"],
+                        "O bandeijão tá aberto?": ["Bandeijão tá caro, compra um miojo ;)"]
+                    },
+                    "Você é programador?": {
+                        "Você está no hackathon?": ['Coma de tudo e leve uma marmita pra casa ps: a comda do facebook é mt boa<br><img src="https://media.giphy.com/media/FygB65Og7Gsa4/giphy.gif" />'],
+                        "Tem projeto pra amanhã?": ['Não coma, trabalhe<br><img src="https://media1.tenor.com/images/9c9a535e2baaf595d3cdcea83054e110/tenor.gif?itemid=10913528" />'],
+                        "Você se sente sozinhx? -Muito muito sozinhx? - Sozinhx mesmx?": ['Baixe o tinder<br><img src="https://media.giphy.com/media/tQkDLHqSG4KLC/giphy.gif" />']
+                    },
+                    "Você é veganx?": ['Opcção vegetariana: ovo']
+                }
             }
             let pathAtual = json;
             let pathTitulo = "Categorias";
@@ -105,7 +122,8 @@ input:checked + .slider:before {
                     document.getElementById("pergunta").innerHTML = path;
                     document.getElementById("pergunta-imagem").innerHTML = "";
                     document.getElementById("pergunta-respostas").innerHTML = pathAtual.randomElement();
-                    document.getElementById("menu").className = "hero is-warning is-fullheight"
+                    document.getElementById("menu").className = "hero is-warning is-fullheight";
+                    document.getElementById("pergunta-respostas").className = "content has-text-centered";
                 } else {
                     document.getElementById("pergunta").innerHTML = pathAtual["title"];
                     document.getElementById("pergunta-imagem").innerHTML = pathAtual["img"];
