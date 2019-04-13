@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>00</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <style>
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+        </style>
+        <script>
+            Array.prototype.randomElement = function () {
+                return this[Math.floor(Math.random() * this.length)]
+            }
+            let frases = ["OI", "OI2", "OI3", "OI4", "OI5", "FRASE FINAL"];
+            let fraseAtual = -1;
+            /*let json = {
+                "title": "Categorias",
+                "img": "<img src='https://dummyimage.com/200x200/757575/292929.png&text=uma+imagem' />",
+                "AA": {
+                    "title": "Oi",
+                    "img": "<img src='https://dummyimage.com/200x200/757575/292929.png&text=uma+imagem' />",
+                    "DD": ["Resposta 1", "Resposta 2", "Resposta 3"]
+                },
+                "BB": {
+
+                },
+                "CC": {
+
+                }
+            };*/
+            let json = {
+                "title": "Categorias (Escolha uma)",
+                "img": ""
+            }
+            let pathAtual = json;
+            let pathTitulo = "Categorias";
+
+            function mudarPath(path, res){
+                if(path) pathAtual = pathAtual[path]
+                pathTitulo = path;
+                if(Array.isArray(pathAtual)){
+                    document.getElementById("pergunta").innerHTML = path;
+                    document.getElementById("pergunta-imagem").innerHTML = "";
+                    document.getElementById("pergunta-respostas").innerHTML = pathAtual.randomElement();
+                    document.getElementById("menu").className = "hero is-warning is-fullheight"
+                } else {
+                    document.getElementById("pergunta").innerHTML = pathAtual["title"];
+                    document.getElementById("pergunta-imagem").innerHTML = pathAtual["img"];
+                    let novoHtml = "";
+                    for(let i in pathAtual){
+                        if(i != "img" && i != "title") novoHtml += '<p><a class="button is-fullwidth" onclick="mudarPath(\''+i+'\')">'+i+'</a></p>';
+                    }
+                    document.getElementById("pergunta-respostas").innerHTML = novoHtml;
+                }
+            }
+
+            function mudarFrase(){
+                fraseAtual++;
+                document.getElementById("frase").innerText = frases[fraseAtual];
+                if(fraseAtual+1 >= frases.length){
+                    fraseAtual--;
+                    document.getElementById("frase-final").style["display"] = "block";
+                }
+            }
+
+            function vaiProMenu(){
+                if(document.getElementById("check1").checked && document.getElementById("check2").checked && document.getElementById("check3").checked){
+                    document.getElementById("pagina-inicial").style["display"] = "none";
+                    document.getElementById("menu").style["display"] = "flex";
+                    mudarPath(false, false)
+                }
+            }
+        </script>
+    </head>
+    <body>
+    <section class="hero is-success is-fullheight" style="display: none;" id="menu">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title" id="pergunta">
+                        Pergunta
+                    </h1>
+                    <div class="box has-text-centered">
+                        <article class="media">
+                            <div class="media-left" id="pergunta-imagem">
+                                <img src="https://dummyimage.com/200x200/757575/292929.png&text=uma+imagem" />
+                            </div>
+                            <div class="media-content">
+                                <div class="content" id="pergunta-respostas">
+                                    <p><a class="button is-fullwidth">Normal</a></p>
+                                    <p><a class="button is-fullwidth">Normal</a></p>
+                                    <p><a class="button is-fullwidth">Normal</a></p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero is-danger is-fullheight" onclick="mudarFrase()" id="pagina-inicial" style="display: flex;">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title has-text-centered" id="frase">
+                        FRASE
+                    </h1>
+                    <div class="box has-text-centered" id="frase-final" style="display: none;">
+                        <p>
+                            <label class="switch">
+                                <input type="checkbox" id="check1" onclick="vaiProMenu()">
+                                <span class="slider"></span>
+                            </label>
+                            <label>Confirmo que li os termos de serviço</label>
+                        </p><br>
+                        <p>
+                            <label class="switch">
+                                <input type="checkbox" id="check2" onclick="vaiProMenu()">
+                                <span class="slider"></span>
+                            </label>
+                            <label>Confirmo que tenho 18 anos ou mais</label>
+                        </p><br>
+                        <p>
+                            <label class="switch">
+                                <input type="checkbox" id="check3" onclick="vaiProMenu()">
+                                <span class="slider"></span>
+                            </label>
+                            <label>Confirmo que não tenho certeza se desejo continuar</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body> 
+</html>
